@@ -5,6 +5,9 @@ public class ServicoNotificacao {
     private final ICanalDeEnvio canal;
 
     public ServicoNotificacao(NotificacaoFabrica fabrica, String mensagem) {
+        if (mensagem == null || mensagem.trim().isEmpty()) {
+            throw new IllegalArgumentException("Mensagem não pode ser nula ou vazia");
+        }
         this.msg = fabrica.createMensagem(mensagem);
         this.canal = fabrica.createCanalDeEnvio();
     }

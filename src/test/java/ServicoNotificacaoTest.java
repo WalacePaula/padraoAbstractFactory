@@ -22,4 +22,25 @@ public class ServicoNotificacaoTest {
         var servicoNotificacao = new ServicoNotificacao(notificacaoFabrica, mensagemSMS);
         assertEquals("Enviando mensagem de SMS: Mensagem de um SMS: " + mensagemSMS, servicoNotificacao.notificar());
     }
+
+    @Test
+    void deveLancarExcecaoAoEnviarNotificacaoPorEmailComMensagemVazia() {
+        NotificacaoFabrica notificacaoFabrica = new FabricaEmail();
+        String mensagemEmail = " ";
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new ServicoNotificacao(notificacaoFabrica, mensagemEmail);
+        });
+
+        String expectedMessage = "Mensagem não pode ser nula ou vazia";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void deveLancarExcecaoAoEnviarNotificacaoComMensagemNula() {
+        NotificacaoFabrica notificacaoFabrica = new FabricaEmail();
+        assertThrows(IllegalArgumentException.class, () -> {
+            new ServicoNotificacao(notificacaoFabrica, null);
+        });
+    }
 }
