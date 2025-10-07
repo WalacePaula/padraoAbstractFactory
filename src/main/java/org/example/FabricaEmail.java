@@ -2,8 +2,8 @@ package org.example;
 
 public class FabricaEmail implements NotificacaoFabrica{
     @Override
-    public IMensagem createMensagem() {
-        return new MensagemEmail();
+    public IMensagem createMensagem(String mensagem) {
+        return new MensagemEmail(mensagem);
     }
 
     @Override
